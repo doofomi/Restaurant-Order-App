@@ -1,0 +1,33 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <ellipse cx="649" cy="366" rx="386" ry="198" fill="#E8D8C9"/>
+  <ellipse cx="640" cy="346" rx="338" ry="172" fill="#F9F4EE"/>
+  <ellipse cx="640" cy="346" rx="300" ry="147" fill="#FFFDF9"/>
+  <ellipse cx="803" cy="322" rx="118" ry="82" transform="rotate(-10 803 322)" fill="#F08A45"/>
+  <ellipse cx="796" cy="320" rx="92" ry="60" transform="rotate(-10 796 320)" fill="#FFA766"/>
+  <path d="M736 303C768 274 816 264 865 275C850 322 814 364 760 382C733 366 716 338 736 303Z" fill="#F37B3F"/>
+  <path d="M724 342C764 326 811 322 857 331C830 369 783 392 733 392C715 379 705 355 724 342Z" fill="#E66A32"/>
+  <ellipse cx="501" cy="397" rx="97" ry="58" transform="rotate(12 501 397)" fill="#8EBB56"/>
+  <ellipse cx="452" cy="333" rx="82" ry="47" transform="rotate(-21 452 333)" fill="#7DA948"/>
+  <ellipse cx="565" cy="318" rx="73" ry="41" transform="rotate(23 565 318)" fill="#94C765"/>
+  <ellipse cx="522" cy="288" rx="52" ry="29" transform="rotate(-18 522 288)" fill="#5E8C35"/>
+  <ellipse cx="612" cy="402" rx="85" ry="46" transform="rotate(-7 612 402)" fill="#D6A15E"/>
+  <ellipse cx="628" cy="400" rx="66" ry="33" transform="rotate(-7 628 400)" fill="#E9BC79"/>
+  <circle cx="500" cy="363" r="18" fill="#D3472C"/>
+  <circle cx="544" cy="432" r="16" fill="#C9381F"/>
+  <circle cx="573" cy="279" r="13" fill="#D3472C"/>
+  <circle cx="697" cy="412" r="14" fill="#C9381F"/>
+  <path d="M845 235C869 223 898 229 914 250C888 260 859 256 845 235Z" fill="#2F7A54"/>
+  <path d="M877 220C899 208 927 212 944 231C920 243 894 241 877 220Z" fill="#3D8B63"/>
+  <path d="M911 247C930 236 954 239 970 255C948 266 925 264 911 247Z" fill="#2F7A54"/>
+  <rect x="960" y="104" width="204" height="22" rx="11" transform="rotate(28 960 104)" fill="#C7B299"/>
+  <rect x="1001" y="141" width="144" height="20" rx="10" transform="rotate(28 1001 141)" fill="#8F6F57"/>
+  <rect x="156" y="555" width="968" height="28" rx="14" fill="#D8C2AF" fill-opacity="0.4"/>
+  <defs>
+    <linearGradient id="bg" x1="640" y1="0" x2="640" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6D5BA"/>
+      <stop offset="0.52" stop-color="#F3E2D4"/>
+      <stop offset="1" stop-color="#F8F3ED"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwiftServe | Restaurant Ordering System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Restaurant ordering automation</p>
+        <h1>Take orders, collect payment, route fulfillment, and notify customers without handoffs.</h1>
+        <p class="hero-text">
+          This prototype covers the complete flow: a customer builds an order, chooses delivery or pickup,
+          pays, receives an order number, and tracks real-time restaurant updates until ready.
+        </p>
+      </div>
+      <div class="hero-card">
+        <div class="snapshot-image-wrap">
+          <img
+            class="snapshot-image"
+            src="hero-meal.svg"
+            alt="A plated restaurant meal with salmon, vegetables, and garnish"
+          >
+        </div>
+        <span class="hero-label">Live operations snapshot</span>
+        <div class="hero-metric">
+          <strong id="live-order-count">0</strong>
+          <span>orders in system</span>
+        </div>
+        <div class="hero-metric">
+          <strong id="live-revenue">$0.00</strong>
+          <span>simulated revenue</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel customer-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Customer app</p>
+            <h2>Place an order</h2>
+          </div>
+          <span class="pill">Step 1 to 3</span>
+        </div>
+
+        <form id="order-form" class="order-form">
+          <div class="form-section menu-selector-section">
+            <h3>Menu items</h3>
+            <div class="compact-menu-picker">
+              <label>
+                Select item
+                <select id="menu-select">
+                  <option value="">Choose a menu item</option>
+                </select>
+              </label>
+              <label>
+                Qty
+                <input id="menu-quantity" type="number" min="1" max="20" value="1">
+              </label>
+              <button type="button" class="action-button add-item-button" id="add-menu-item">Add item</button>
+            </div>
+            <div class="selected-items" id="selected-items"></div>
+          </div>
+
+          <div class="form-section">
+            <h3>Customer details</h3>
+            <div class="field-grid">
+              <label>
+                Full name
+                <input type="text" name="customerName" placeholder="Jordan Smith" required>
+              </label>
+              <label>
+                Mobile number
+                <input type="tel" name="customerPhone" placeholder="+1 416 555 0148" required>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Fulfillment</h3>
+            <div class="segmented-control">
+              <label class="segment">
+                <input type="radio" name="fulfillment" value="delivery" checked>
+                <span>Delivery</span>
+              </label>
+              <label class="segment">
+                <input type="radio" name="fulfillment" value="pickup">
+                <span>Pickup</span>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label class="delivery-only">
+                Delivery address
+                <input type="text" name="address" placeholder="101 King St W, Toronto, ON">
+              </label>
+              <label>
+                Requested time
+                <select name="timeSlot">
+                  <option>ASAP</option>
+                  <option>In 20 minutes</option>
+                  <option>In 40 minutes</option>
+                  <option>At 7:00 PM</option>
+                  <option>At 8:00 PM</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Payment</h3>
+            <div class="payment-card">
+              <div class="field-grid">
+                <label>
+                  Cardholder name
+                  <input type="text" name="cardName" placeholder="Jordan Smith" required>
+                </label>
+                <label>
+                  Card number
+                  <input type="text" name="cardNumber" inputmode="numeric" maxlength="19" placeholder="4242 4242 4242 4242" required>
+                </label>
+                <label>
+                  Expiry
+                  <input type="text" name="cardExpiry" maxlength="5" placeholder="08/28" required>
+                </label>
+                <label>
+                  CVV
+                  <input type="password" name="cardCvv" maxlength="4" placeholder="123" required>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="checkout-bar">
+            <div class="totals">
+              <div><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
+              <div><span>Service fee</span><strong id="service-fee">$0.00</strong></div>
+              <div><span>Delivery fee</span><strong id="delivery-fee">$0.00</strong></div>
+              <div class="grand-total"><span>Total</span><strong id="grand-total">$0.00</strong></div>
+            </div>
+            <div class="checkout-actions">
+              <button type="button" class="secondary-button" id="restart-order">Restart order</button>
+              <button type="submit" class="primary-button">Pay and generate order</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel status-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Customer tracking</p>
+            <h2>Order status & messages</h2>
+          </div>
+          <span class="pill" id="latest-order-pill">No active order</span>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-meta">
+            <strong>Workflow completion</strong>
+            <span id="progress-percent">0%</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="muted" id="progress-label">Start a new order to begin the workflow.</p>
+        </div>
+
+        <div class="status-card" id="customer-status-card">
+          <p class="muted">Place an order to receive your order number, payment confirmation, and restaurant updates.</p>
+        </div>
+
+        <div class="timeline" id="message-timeline"></div>
+      </section>
+
+      <section class="panel ops-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Restaurant console</p>
+            <h2>Kitchen & dispatch</h2>
+          </div>
+          <span class="pill">Step 4 to 5</span>
+        </div>
+
+        <div class="ops-summary" id="ops-summary"></div>
+        <div class="ops-board" id="ops-board"></div>
+      </section>
+    </main>
+  </div>
+
+  <template id="selected-item-template">
+    <article class="selected-item-card">
+      <div>
+        <strong class="selected-item-name"></strong>
+        <p class="selected-item-description"></p>
+      </div>
+      <div class="selected-item-controls">
+        <span class="price-tag"></span>
+        <label class="quantity-control">
+          Qty
+          <input type="number" min="1" max="20" value="1">
+        </label>
+        <button type="button" class="remove-item-button">Remove</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
